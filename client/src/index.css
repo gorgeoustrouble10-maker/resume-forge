@@ -1,0 +1,1222 @@
+:root {
+  --color-bg: #f9fafb;
+  --color-surface: #ffffff;
+  --color-border: #e5e7eb;
+  --color-text: #1f2937;
+  --color-text-soft: #6b7280;
+  --color-text-mute: #9ca3af;
+  --color-primary: #2563eb;
+  --color-primary-soft: #dbeafe;
+  --color-success: #16a34a;
+  --color-success-soft: #dcfce7;
+  --color-warning: #d97706;
+  --color-warning-soft: #fef3c7;
+  --color-danger: #dc2626;
+  --color-danger-soft: #fee2e2;
+  --radius: 8px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC',
+    'Microsoft YaHei', sans-serif;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem 3rem;
+}
+
+.app-header {
+  text-align: center;
+  padding: 1.5rem 0 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.app-header h1 {
+  font-size: 1.875rem;
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+}
+
+.app-header p {
+  margin-top: 0.375rem;
+  color: var(--color-text-soft);
+  font-size: 0.875rem;
+}
+
+.app-main {
+  padding: 1.5rem 0;
+}
+
+.app-footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--color-border);
+  text-align: center;
+  color: var(--color-text-mute);
+  font-size: 0.75rem;
+}
+
+.app-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding: 0.625rem 0.875rem;
+  background: var(--color-danger-soft);
+  border: 1px solid var(--color-danger);
+  border-radius: var(--radius);
+  color: var(--color-danger);
+  font-size: 0.875rem;
+}
+
+.app-error__close {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.app-loading {
+  margin-top: 1rem;
+  padding: 0.625rem 0.875rem;
+  background: var(--color-primary-soft);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius);
+  color: var(--color-primary);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* 通用按钮 */
+.btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--color-bg);
+  border-color: var(--color-text-mute);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--color-primary);
+  padding: 0.25rem 0.5rem;
+}
+
+.btn--ghost:hover:not(:disabled) {
+  background: var(--color-primary-soft);
+}
+
+/* 步骤指示器 */
+.stepper {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.stepper__item {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8rem;
+  color: var(--color-text-mute);
+  flex: 1;
+  justify-content: center;
+}
+
+.stepper__dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.stepper__item--current {
+  color: var(--color-primary);
+}
+
+.stepper__item--current .stepper__dot {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.stepper__item--done .stepper__dot {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.stepper__label {
+  white-space: nowrap;
+}
+
+/* 表单步骤 */
+.step {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.step__title {
+  font-size: 1.125rem;
+  color: var(--color-text);
+  margin-bottom: 0.25rem;
+}
+
+.step__hint {
+  font-size: 0.8125rem;
+  color: var(--color-text-soft);
+  margin-bottom: 1rem;
+}
+
+.step__actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+/* 表单字段 */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.875rem 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.8125rem;
+  color: var(--color-text-soft);
+}
+
+.field--wide {
+  grid-column: 1 / -1;
+}
+
+.field span {
+  font-weight: 500;
+}
+
+.field input,
+.field select,
+.field textarea {
+  padding: 0.5rem 0.625rem;
+  font-size: 0.875rem;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: var(--color-surface);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* 卡片（教育 / 项目 / 社团） */
+.card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-bottom: 0.875rem;
+  background: var(--color-bg);
+}
+
+.card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--color-text-soft);
+  font-weight: 600;
+}
+
+/* 技能输入 */
+.skills-input {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.875rem;
+}
+
+.skills-input input {
+  flex: 1;
+  padding: 0.5rem 0.625rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-bg);
+}
+
+.skills-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.skills-list__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  border-radius: 999px;
+  font-size: 0.8125rem;
+}
+
+.skills-list__remove {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.skills-list__empty {
+  color: var(--color-text-mute);
+  font-size: 0.8125rem;
+}
+
+/* 页面通用 */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.page__toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page__title {
+  font-size: 1.25rem;
+}
+
+.page__actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.page__empty {
+  color: var(--color-text-soft);
+  margin-bottom: 1rem;
+}
+
+/* 简历预览 */
+.resume-preview {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.resume-preview__tabs {
+  display: flex;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.tab {
+  padding: 0.625rem 1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--color-text-soft);
+  border-bottom: 2px solid transparent;
+}
+
+.tab--active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  background: var(--color-surface);
+}
+
+.resume-doc {
+  padding: 2rem 2.25rem 2.5rem;
+  background: var(--color-surface);
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+.resume-doc--hidden {
+  display: none;
+}
+
+/* 顶部：居中姓名 + 求职意向 + 联系方式，底部主色分隔线 */
+.resume-doc__header {
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.resume-doc__header h1 {
+  font-size: 1.625rem;
+  letter-spacing: 0.1em;
+  text-indent: 0.1em;
+  line-height: 1.3;
+}
+
+.resume-doc__intent {
+  margin-top: 0.375rem;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+.resume-doc__contacts {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: var(--color-text-soft);
+  font-size: 0.8125rem;
+}
+
+.resume-doc__contact + .resume-doc__contact::before {
+  content: '·';
+  margin: 0 0.5rem;
+  color: var(--color-text-mute);
+}
+
+/* 分区标题：主色竖条 + 通栏下划线 */
+.resume-doc__section {
+  margin-top: 1.375rem;
+}
+
+.resume-doc__section h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding-bottom: 0.375rem;
+  border-bottom: 1.5px solid var(--color-border);
+  margin-bottom: 0.75rem;
+}
+
+.resume-doc__section h2::before {
+  content: '';
+  width: 0.25rem;
+  height: 1rem;
+  border-radius: 2px;
+  background: var(--color-primary);
+}
+
+.resume-doc__summary {
+  text-align: justify;
+}
+
+/* 条目：标题居左、时间居右 */
+.resume-doc__entry {
+  margin-bottom: 0.875rem;
+}
+
+.resume-doc__entry-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.resume-doc__entry-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.resume-doc__entry-period {
+  flex-shrink: 0;
+  font-size: 0.8125rem;
+  color: var(--color-text-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.resume-doc__entry-sub {
+  margin-top: 0.125rem;
+  font-size: 0.8125rem;
+  color: var(--color-text-soft);
+}
+
+.resume-doc__entry-note {
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
+  color: var(--color-text-soft);
+}
+
+.resume-doc__bullets {
+  margin-top: 0.375rem;
+  margin-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.resume-doc__bullets li {
+  list-style: disc;
+  padding-left: 0.125rem;
+}
+
+.resume-doc__bullets li::marker {
+  color: var(--color-primary);
+}
+
+.resume-doc__skills {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-left: 0 !important;
+}
+
+.resume-doc__skills li {
+  list-style: none;
+  padding: 0.1875rem 0.75rem;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  border-radius: 4px;
+  font-size: 0.8125rem;
+}
+
+.resume-doc__markdown {
+  padding: 1rem 1.25rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  background: var(--color-bg);
+}
+
+.resume-doc__markdown--hidden {
+  display: none;
+}
+
+/* 知识库引用 */
+.references {
+  margin-top: 0.5rem;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  padding: 0.625rem 0.875rem;
+}
+
+.references__summary {
+  cursor: pointer;
+  font-size: 0.8125rem;
+  color: var(--color-text-soft);
+}
+
+.references__list {
+  list-style: none;
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.references__item {
+  border-top: 1px solid var(--color-border);
+  padding-top: 0.625rem;
+}
+
+.references__head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  font-size: 0.8125rem;
+  margin-bottom: 0.375rem;
+}
+
+.references__title {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.references__score {
+  color: var(--color-text-mute);
+  font-size: 0.75rem;
+}
+
+.references__content {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.75rem;
+  color: var(--color-text-soft);
+  background: var(--color-bg);
+  padding: 0.5rem 0.625rem;
+  border-radius: 4px;
+  max-height: 180px;
+  overflow: auto;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  background: var(--color-bg);
+  color: var(--color-text-soft);
+  border: 1px solid var(--color-border);
+}
+
+.tag--ok {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+  border-color: transparent;
+}
+
+.tag--warn {
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+  border-color: transparent;
+}
+
+/* 评分卡 */
+.overall {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.overall__score {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.overall__summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.overall__label {
+  font-size: 0.75rem;
+  color: var(--color-text-mute);
+}
+
+.overall__summary p {
+  font-size: 0.875rem;
+  color: var(--color-text);
+}
+
+.score-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.875rem;
+}
+
+.score-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.score-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+
+.score-card__label {
+  font-size: 0.875rem;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.score-card__value {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.score-card__comment {
+  font-size: 0.8125rem;
+  color: var(--color-text-soft);
+  margin-bottom: 0.625rem;
+}
+
+.score-card__suggestions {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.suggestion {
+  background: var(--color-bg);
+  border-left: 3px solid var(--color-primary);
+  padding: 0.5rem 0.625rem;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.8125rem;
+}
+
+.suggestion__location {
+  display: inline-block;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.25rem;
+}
+
+.suggestion__issue,
+.suggestion__tip {
+  color: var(--color-text-soft);
+  font-size: 0.75rem;
+}
+
+.suggestion__tip {
+  margin-top: 0.125rem;
+}
+
+/* ATS 报告 */
+.ats-report {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ats-overview {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.ats-overview__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ats-overview__value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.ats-overview__label {
+  font-size: 0.75rem;
+  color: var(--color-text-mute);
+}
+
+.ats-section {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.ats-section h3 {
+  font-size: 0.9375rem;
+  margin-bottom: 0.625rem;
+  border-left: 3px solid var(--color-primary);
+  padding-left: 0.5rem;
+}
+
+.ats-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.8125rem;
+}
+
+.ats-keywords__label {
+  color: var(--color-text-soft);
+  margin-right: 0.25rem;
+}
+
+.ats-issues {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.ats-issue {
+  background: var(--color-bg);
+  padding: 0.625rem 0.875rem;
+  border-radius: var(--radius);
+  font-size: 0.8125rem;
+}
+
+.ats-issue__location {
+  display: inline-block;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0.5rem 0.25rem 0;
+}
+
+.ats-issue__text {
+  color: var(--color-text-soft);
+  margin-bottom: 0.25rem;
+}
+
+.ats-issue__fix {
+  color: var(--color-primary);
+}
+
+.ats-empty {
+  color: var(--color-text-mute);
+  font-size: 0.8125rem;
+}
+
+/* 响应式 */
+@media (max-width: 640px) {
+  .app {
+    padding: 1rem;
+  }
+
+  .form-grid,
+  .score-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ats-overview {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stepper__label {
+    display: none;
+  }
+}
+
+/* 打印为 PDF：只显示简历结构化预览，隐藏所有 UI chrome */
+@media print {
+  @page {
+    margin: 16mm 14mm;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  /* 隐藏所有不打印的元素：页头、页脚、错误条、loading、按钮、tab、引用列表 */
+  .app-header,
+  .app-footer,
+  .app-error,
+  .app-loading,
+  .no-print,
+  .resume-preview__tabs,
+  .references {
+    display: none !important;
+  }
+
+  /* 简历预览容器：去边框阴影、全宽白底 */
+  .app,
+  .app-main,
+  .page,
+  .resume-preview {
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #fff !important;
+  }
+
+  /* 强制打印结构化简历模板（无论当前处于哪个视图标签） */
+  .resume-doc,
+  .resume-doc--hidden {
+    display: block !important;
+    padding: 0 !important;
+    font-size: 10.5pt;
+    line-height: 1.6;
+    color: #000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .resume-doc__markdown {
+    display: none !important;
+  }
+
+  .resume-doc__header {
+    padding-bottom: 8pt;
+    border-bottom-width: 2pt;
+  }
+
+  .resume-doc__header h1 {
+    font-size: 18pt;
+  }
+
+  .resume-doc__intent {
+    margin-top: 3pt;
+    font-size: 11pt;
+  }
+
+  .resume-doc__contacts {
+    margin-top: 4pt;
+    font-size: 9pt;
+  }
+
+  .resume-doc__section {
+    margin-top: 10pt;
+    page-break-inside: avoid;
+  }
+
+  .resume-doc__section h2 {
+    font-size: 12pt;
+    gap: 4pt;
+    padding-bottom: 3pt;
+    border-bottom-width: 1pt;
+    margin-bottom: 5pt;
+  }
+
+  .resume-doc__section h2::before {
+    width: 2.5pt;
+    height: 10pt;
+  }
+
+  .resume-doc__entry {
+    page-break-inside: avoid;
+    margin-bottom: 5pt;
+  }
+
+  .resume-doc__entry-title {
+    font-size: 10.5pt;
+  }
+
+  .resume-doc__entry-period,
+  .resume-doc__entry-sub,
+  .resume-doc__entry-note {
+    font-size: 9.5pt;
+  }
+
+  .resume-doc__bullets {
+    margin-top: 2pt;
+    margin-left: 12pt;
+    gap: 1.5pt;
+  }
+
+  .resume-doc__skills {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 4pt;
+  }
+
+  .resume-doc__skills li {
+    background: var(--color-primary-soft) !important;
+    color: var(--color-primary) !important;
+    border: none !important;
+    font-size: 9pt;
+    padding: 1pt 6pt;
+  }
+}
+
+/* 报告元信息（生成时间/统计说明） */
+.page__meta {
+  margin: 0.25rem 0 1rem;
+  color: var(--color-text-mute);
+  font-size: 0.75rem;
+}
+
+/* 时间线硬校验预警 */
+.timeline-warning {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  background: var(--color-warning-soft);
+  border: 1px solid var(--color-warning);
+  border-radius: var(--radius);
+  color: #92400e;
+  font-size: 0.875rem;
+}
+
+.timeline-warning__title {
+  font-weight: 600;
+  margin-bottom: 0.375rem;
+}
+
+.timeline-warning ul {
+  margin-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.timeline-warning__location {
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+/* 表单页快捷入口 */
+.form-page__quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.875rem;
+}
+
+/* 上传简历直接分析 */
+.upload-card .form-grid {
+  margin-bottom: 0.5rem;
+}
+
+.upload-hint {
+  font-size: 0.8125rem;
+  color: var(--color-text-mute);
+}
+
+.upload-status {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--color-primary);
+}
+
+.upload-status--error {
+  color: var(--color-danger);
+}
+
+/* ---------------------------------------------------------------------------
+ * 头像上传组件
+ * ------------------------------------------------------------------------- */
+.field--avatar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.avatar-uploader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.avatar-uploader__preview,
+.avatar-uploader__placeholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-mute);
+  font-size: 0.875rem;
+}
+
+.avatar-uploader__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.avatar-uploader__size {
+  font-size: 0.75rem;
+  color: var(--color-success);
+}
+
+.avatar-uploader__error {
+  font-size: 0.75rem;
+  color: var(--color-danger);
+}
+
+.field__hint {
+  font-size: 0.75rem;
+  color: var(--color-text-mute);
+}
+
+/* ---------------------------------------------------------------------------
+ * 内容幻觉校验报告
+ * ------------------------------------------------------------------------- */
+.hallucination {
+  margin: 1.25rem 0;
+  padding: 1rem 1.25rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.hallucination__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+
+.hallucination__badge:hover {
+  opacity: 0.85;
+}
+
+.hallucination__score {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.hallucination__level {
+  font-size: 0.8125rem;
+}
+
+.hallucination__toggle {
+  font-size: 0.75rem;
+  opacity: 0.75;
+}
+
+.hallucination__summary {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-text-soft);
+}
+
+.hallucination__issues {
+  margin-top: 0.75rem;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.hallucination__issue {
+  padding: 0.5rem 0.75rem;
+  border-left: 3px solid var(--color-border);
+  background: var(--color-bg);
+  border-radius: 4px;
+  font-size: 0.8125rem;
+}
+
+.hallucination__issue-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.hallucination__issue-type {
+  color: #fff;
+  font-size: 0.6875rem;
+  padding: 0.125rem 0.375rem;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.hallucination__issue-severity {
+  font-size: 0.75rem;
+  color: var(--color-text-mute);
+}
+
+.hallucination__issue-location {
+  font-size: 0.75rem;
+  color: var(--color-text-soft);
+  background: var(--color-surface);
+  padding: 0.0625rem 0.3125rem;
+  border-radius: 3px;
+  border: 1px solid var(--color-border);
+  font-family: 'SFMono-Regular', Consolas, monospace;
+}
+
+.hallucination__issue-evidence {
+  color: var(--color-text);
+  margin: 0.125rem 0;
+}
+
+.hallucination__issue-explanation {
+  color: var(--color-text-soft);
+  font-size: 0.75rem;
+}
+
+.hallucination__empty {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-success);
+}
