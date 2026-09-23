@@ -1,6 +1,42 @@
 # Resume Forge
 
-> 面向应届生的 AI 简历生成系统 —— 校园经历职场化翻译 + HR 视角评分 + ATS 适配检测
+> 面向应届生的 AI 简历生成系统 —— 校园经历职场化翻译 + HR 视角评分 + ATS 适配检测 + 内容幻觉校验
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/gorgeoustrouble10-maker/resume-forge)](https://github.com/gorgeoustrouble10-maker/resume-forge/commits/main)
+[![Repo Stars](https://img.shields.io/github/stars/gorgeoustrouble10-maker/resume-forge?style=social)](https://github.com/gorgeoustrouble10-maker/resume-forge/stargazers)
+[![Top Language](https://img.shields.io/github/languages/top/gorgeoustrouble10-maker/resume-forge)](https://github.com/gorgeoustrouble10-maker/resume-forge)
+[![Issues](https://img.shields.io/github/issues/gorgeoustrouble10-maker/resume-forge)](https://github.com/gorgeoustrouble10-maker/resume-forge/issues)
+
+**技术栈**：
+[![React 18](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-20-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express-4-000000?logo=express&logoColor=white)](https://expressjs.com/)
+[![LangChain](https://img.shields.io/badge/LangChain-0.3-1C3C44?logo=langchain&logoColor=white)](https://langchain.com/)
+[![Chroma](https://img.shields.io/badge/Chroma-1.9-FF4F00?logo=chroma&logoColor=white)](https://www.trychroma.com/)
+[![DeepSeek](https://img.shields.io/badge/DeepSeek-Coder-4D6B7B)](https://www.deepseek.com/)
+
+---
+
+## 在线 Demo
+
+> **暂未部署在线 Demo**：本项目依赖 DeepSeek API Key 与 Chroma 本地向量库，需要后端常驻服务，
+> 不适合纯静态托管（GitHub Pages / Vercel static）。请按下方 [快速开始](#快速开始) 本地运行。
+
+**Demo 预览路径**：
+
+1. **表单填写**（5 步：基本信息 / 教育 / 实习 / 项目 / 社团 / 技能）→ 一键填充示例数据
+2. **简历生成**：DeepSeek 将校园经历 STAR 化翻译，服务端结构化渲染 markdown
+3. **可信度报告**：自动检测编造主体、编造技能、未溯源量化数据、时间线冲突
+4. **HR 评分**：四维度打分（岗位匹配 / 经历量化 / 逻辑清晰 / 关键词匹配）
+5. **ATS 检测**：关键词覆盖率 × 40% + 格式 × 30% + 信息完整性 × 30%
+6. **PDF 上传直评**：浏览器本地解析 PDF（文件不上传服务器），直接 HR 评分 + ATS 检测 + 可信度检查
+
+> 计划部署到 Render（后端）+ Vercel（前端），届时会在此更新链接。
+
+---
 
 ## 项目定位
 
