@@ -44,6 +44,12 @@ export const config = {
     // 每路检索返回的相关片段数
     topK: Number(process.env.RAG_TOP_K) || 4,
   },
+  /**
+   * CORS 允许来源白名单（逗号分隔）。
+   * 留空 = 允许所有来源（开发默认）。
+   * 生产环境建议设为 Vercel 域名，如：https://resume-forge.vercel.app
+   */
+  corsOrigin: process.env.CORS_ORIGIN || '',
 } as const;
 
 export type AppConfig = typeof config;

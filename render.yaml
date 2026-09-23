@@ -1,0 +1,40 @@
+# Render Blueprint: 后端服务配置
+# 文档：https://render.com/docs/blueprints
+# 部署方式：在 Render 控制台选 "New Blueprint" 并连接 GitHub 仓库 gorgeoustrouble10-maker/resume-forge
+
+services:
+  - type: web
+    name: resume-forge-server
+    env: node
+    region: singapore  # 亚太用户访问延迟低；欧美用户可改为 oregon / frankfurt
+    plan: free  # 免费层 512MB 内存 / 0.1 CPU，足够本项目使用
+    root: server
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 20.14.0
+      - key: PORT
+        value: 10000  # Render 会自动注入，这里仅为占位
+      - key: DEEPSEEK_API_KEY
+        sync: false  # 在 Render 控制台手动填入（敏感值，不入仓库）
+      - key: DEEPSEEK_MODEL
+        value: deepseek-coder
+      - key: CHROMA_MODE
+        value: local
+      - key: CHROMA_DB_PATH
+        value: ./data/chroma  # ephemeral filesystem，重启会丢，靠 autoIngestIfNeeded 重建
+      - key: CHROMA_COLLECTION
+        value: resume-knowledge
+      - key: KNOWLEDGE_BASE_PATH
+        value: ./data/knowledge
+      - key: RAG_CHUNK_SIZE
+        value: '600'
+      - key: RAG_CHUNK_OVERLAP
+        value: '100'
+      - key: RAG_TOP_K
+        value: '4'
+      - key: CORS_ORIGIN
+        sync: false  # 部署完 Vercel 后回填 https://your-app.vercel.app

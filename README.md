@@ -22,8 +22,7 @@
 
 ## 在线 Demo
 
-> **暂未部署在线 Demo**：本项目依赖 DeepSeek API Key 与 Chroma 本地向量库，需要后端常驻服务，
-> 不适合纯静态托管（GitHub Pages / Vercel static）。请按下方 [快速开始](#快速开始) 本地运行。
+部署到 Render（后端）+ Vercel（前端）的步骤见 [部署指南](#部署到-render--vercel)。
 
 **Demo 预览路径**：
 
@@ -34,7 +33,89 @@
 5. **ATS 检测**：关键词覆盖率 × 40% + 格式 × 30% + 信息完整性 × 30%
 6. **PDF 上传直评**：浏览器本地解析 PDF（文件不上传服务器），直接 HR 评分 + ATS 检测 + 可信度检查
 
-> 计划部署到 Render（后端）+ Vercel（前端），届时会在此更新链接。
+---
+
+## 部署到 Render + Vercel
+
+架构：**前端 Vercel 静态 SPA + 后端 Render Node Web Service + Chroma 本地存储（启动自动灌库）**。
+
+> 设计权衡：Render 免费层文件系统 ephemeral，重启会丢 Chroma 数据。
+> 启动时 `autoIngestIfNeeded()` 检测集合为空则自动调 `ragService.ingest()` 重建，首次请求延迟 ~30s。
+
+### 1. 准备账号与密钥
+
+| 项 | 用途 | 获取方式 |
+| --- | --- | --- |
+| GitHub 账号 | Render/Vercel 一键登录 | https://github.com |
+| DeepSeek API Key | 后端调 LLM | https://platform.deepseek.com/ → API Keys |
+| Render 账号 | 后端托管 | https://render.com → 用 GitHub 登录 |
+| Vercel 账号 | 前端托管 | https://vercel.com → 用 GitHub 登录 |
+
+### 2. 部署后端到 Render
+
+#### 方式 A：Blueprint 一键部署（推荐）
+
+仓库根目录已有 [render.yaml](render.yaml)，定义了服务名、构建命令、环境变量。
+
+1. Render 控制台 → **New +** → **Blueprint**
+2. 选择 `gorgeoustrouble10-maker/resume-forge` 仓库
+3. Render 自动读取 `render.yaml` 创建 `resume-forge-server` 服务
+4. 在环境变量面板填入两个 `sync: false` 变量：
+   - `DEEPSEEK_API_KEY`：粘贴你的 DeepSeek Key
+   - `CORS_ORIGIN`：先留空，部署完 Vercel 后回填 Vercel 域名
+5. 点 **Apply**，等待首次部署完成（约 2–3 分钟）
+6. 部署成功后获得后端地址，形如 `https://resume-forge-server.onrender.com`
+7. 验证：访问 `https://resume-forge-server.onrender.com/api/health` 应返回 `{"status":"ok"}`
+
+#### 方式 B：手动配置
+
+1. Render 控制台 → **New +** → **Web Service**
+2. 连接 GitHub 仓库 `gorgeoustrouble10-maker/resume-forge`
+3. 配置：
+   - **Root Directory**：`server`
+   - **Build Command**：`npm install && npm run build`
+   - **Start Command**：`npm start`
+   - **Plan**：Free
+4. 环境变量同方式 A 第 4 步
+5. 点 **Create Web Service**
+
+### 3. 部署前端到 Vercel
+
+1. Vercel 控制台 → **Add New** → **Project**
+2. Import 仓库 `gorgeoustrouble10-maker/resume-forge`
+3. 配置：
+   - **Root Directory**：`client`
+   - **Framework Preset**：Vite（自动识别）
+   - **Build Command**：`npm run build`（默认即可）
+   - **Output Directory**：`dist`（默认即可）
+4. **Environment Variables** 新增：
+   - `VITE_API_BASE_URL` = `https://resume-forge-server.onrender.com/api`
+   （把 `resume-forge-server` 替换为你的 Render 服务名）
+5. 点 **Deploy**，等待构建完成（约 1 分钟）
+6. 部署成功后获得前端地址，形如 `https://resume-forge.vercel.app`
+
+### 4. 回填 CORS 白名单
+
+1. 复制 Vercel 域名（如 `https://resume-forge.vercel.app`）
+2. 回到 Render → `resume-forge-server` → Environment
+3. 把 `CORS_ORIGIN` 改为该域名
+4. 触发重新部署（环境变量改动会自动触发）
+
+### 5. 验证
+
+1. 访问 Vercel 域名 → 应看到前端首页
+2. 点"一键填充示例数据" → 提交生成简历 → 应在 30–60s 内返回结果
+3. 首次请求会触发 DeepSeek 调用 + RAG 检索，免费层冷启动可能慢
+4. 若报 `KNOWLEDGE_EMPTY`：说明自动灌库尚未完成，等 30s 再试
+5. 若报 CORS 错误：检查 Render 的 `CORS_ORIGIN` 是否填了 Vercel 域名
+
+### 部署注意事项
+
+- **Render 免费层冷启动**：15 分钟无请求会休眠，下次唤醒约 30s，期间首次请求会等待
+- **Chroma 数据丢失**：每次 Render 重启 / 重部署后首次启动会自动灌库，~30s 内接口返回 `KNOWLEDGE_EMPTY`
+- **DeepSeek 配额**：免费额度有限，建议测试时优先用"可信度检查"（纯代码、不调 LLM）
+- **图片压缩**：客户端 Canvas 实现，不受部署影响
+- **PDF 解析**：浏览器本地用 pdfjs-dist，不受部署影响
 
 ---
 
